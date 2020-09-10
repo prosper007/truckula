@@ -1,0 +1,4 @@
+.Truck{
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,10 @@
+.PageHeader {
+  display: flex;
+  justify-content: center;
+}
+
+.TrucksContainer {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}

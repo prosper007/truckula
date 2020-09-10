@@ -1,6 +1,6 @@
 import React from 'react';
-import NavBar from './Navigation/Navbar/Navbar';
-import Trucks from './Trucks/Trucks';
+import NavBar from './components/Navigation/Navbar/Navbar';
+import Trucks from './containers/Trucks/Trucks';
 
 const App = (props) => {
   return (
