@@ -31,7 +31,7 @@ class Trucks extends Component {
   render() {
     return (
       <React.Fragment>
-        <h2 className={styles.PageHeader}>Available Trucks</h2>
+        <h1 className={styles.PageHeader}>Available Trucks</h1>
         <div className={styles.TrucksContainer}>
           {this.getAvailableTrucks()}
         </div>

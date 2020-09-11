@@ -1,4 +1,38 @@
-.Truck{
+.Truck {
   display: flex;
   flex-direction: column;
+  width: 45%;
+  border: .15em solid #afafaf;
+  border-radius: 0.5em;
+  padding: .8em;
+  margin-bottom: 2em;
+
+}
+
+.TruckDeet {
+  margin-bottom: 1em;
+}
+
+/* .TruckDeet b {
+  color: #8a8a8a
+} */
+
+.RequestButton {
+  align-self: flex-end;
+  background-color: #2180a5d6;
+  border: 0;
+  border-radius: 0.5em;
+  padding: .7em;
+  color: white;
+  font-size: 1.1em;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.RequestButton:hover {
+  background-color: #2180a594;
+}
+
+.RequestText {
+  font-size: 1em;
 }

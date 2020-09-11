@@ -41,7 +41,7 @@ const availableTrucks = [
       state: 'Michigan'
     },
     hasLiftGate: true,
-    description: "Suitable for long distance trips"
+    description: "Not Suitable for long distance trips"
   },
 
   {

@@ -5,6 +5,9 @@
 
 .TrucksContainer {
     display: flex;
+    /* flex-direction: column; */
+    padding: 1em;
+    width: 100%;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
