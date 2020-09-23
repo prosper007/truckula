@@ -1,0 +1,8 @@
+.RequestForm {
+  display: flex;
+  border: .15em solid #afafaf;
+  border-radius: 0.5em;
+  padding: .8em;
+  width: 75%;
+  margin: 0 auto;
+}

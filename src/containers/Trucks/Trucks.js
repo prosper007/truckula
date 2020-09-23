@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styles from './Trucks.module.css';
-import Truck from './Truck/Truck';
-import availableTrucks from './seedTrucks';
+import Truck from '../../components/Truck/Truck';
+import PageHeader from '../../components/UI/PageHeader/PageHeader';
+import availableTrucks from '../../seedTrucks';
 
 class Trucks extends Component {
   state = {
@@ -31,7 +32,7 @@ class Trucks extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1 className={styles.PageHeader}>Available Trucks</h1>
+        <PageHeader>Available Trucks</PageHeader>
         <div className={styles.TrucksContainer}>
           {this.getAvailableTrucks()}
         </div>
