@@ -18,11 +18,26 @@ class RequestTruck extends Component {
   }
 
   addressForm = {
-    addressLine1: { ...this.textInput },
-    addressLine2: { ...this.textInput },
-    city: { ...this.textInput },
-    state: { ...this.textInput },
-    zipCode: { ...this.textInput },
+    addressLine1: {
+      label: 'Address Line 1',
+      ...this.textInput
+    },
+    addressLine2: {
+      label: 'Address Line 2',
+      ...this.textInput
+    },
+    city: {
+      label: 'City',
+      ...this.textInput
+    },
+    state: {
+      label: 'State',
+      ...this.textInput
+    },
+    zipCode: {
+      label: 'Zip Code',
+      ...this.textInput
+    },
   }
 
   state = {
@@ -41,42 +56,100 @@ class RequestTruck extends Component {
       description: "This truck is old. It's as old as Kevin."
     },
     requestForm: {
-      name: { ...this.textInput },
-      email: { ...this.textInput },
+      name: {
+        label: 'Name',
+        ...this.textInput
+      },
+      email: {
+        label: 'Email',
+        ...this.textInput
+      },
       pickupLocation: { ...this.addressForm },
       dropoffLocation: { ...this.addressForm },
     }
   }
 
   render() {
-    let formElements = [];
-    for (let key in this.state.requestForm) {
-      formElements.push({
-        id: key,
-        ...this.state.requestForm[key],
+    const nameField = this.state.requestForm.name;
+    const emailField = this.state.requestForm.email;
+
+    let pickupFields = [];
+    for (let key in this.state.requestForm.pickupLocation) {
+      pickupFields.push({
+        id: "pickup_" + key,
+        ...this.state.requestForm.pickupLocation[key],
       })
     }
-    let form = (
-      <form>
-        {formElements.map(formElement => (
-          <Input
-            key={formElement.id}
-            elementType={formElement.elementType}
-            elementConfig={formElement.elementConfig}
-            value={formElement.value}
-            invalid={!formElement.valid}
-            shouldValidate={formElement.validation}
-            touched={formElement.touched}
-          // changed={(event) => this.inputChangedHandler(event, formElement.id)}
-          />
-        ))}
-      </form>
-    );
+    let pickupInputs = pickupFields.map(pickupField => (
+      <Input
+        key={pickupField.id}
+        elementType={pickupField.elementType}
+        elementConfig={pickupField.elementConfig}
+        value={pickupField.value}
+        label={pickupField.label}
+        invalid={!pickupField.valid}
+        shouldValidate={pickupField.validation}
+        touched={pickupField.touched}
+      // changed={(event) => this.inputChangedHandler(event, pickupField.id)}
+      />
+    ))
+
+    let dropoffFields = [];
+    for (let key in this.state.requestForm.dropoffLocation) {
+      dropoffFields.push({
+        id: "dropoff_" + key,
+        ...this.state.requestForm.dropoffLocation[key],
+      })
+    }
+    let dropoffInputs = dropoffFields.map(dropoffField => (
+      <Input
+        key={dropoffField.id}
+        elementType={dropoffField.elementType}
+        elementConfig={dropoffField.elementConfig}
+        value={dropoffField.value}
+        label={dropoffField.label}
+        invalid={!dropoffField.valid}
+        shouldValidate={dropoffField.validation}
+        touched={dropoffField.touched}
+      // changed={(event) => this.inputChangedHandler(event, dropoffField.id)}
+      />
+    ))
     return (
       <React.Fragment>
         <PageHeader>Request Truck {this.state.selectedTruck.letter}</PageHeader>
         <div className={styles.RequestForm}>
-          {form}
+          <form>
+            <Input
+              key={nameField.id}
+              elementType={nameField.elementType}
+              elementConfig={nameField.elementConfig}
+              value={nameField.value}
+              label={nameField.label}
+              invalid={!nameField.valid}
+              shouldValidate={nameField.validation}
+              touched={nameField.touched}
+            // changed={(event) => this.inputChangedHandler(event, formElement.id)}
+            />
+
+            <Input
+              key={emailField.id}
+              elementType={emailField.elementType}
+              elementConfig={emailField.elementConfig}
+              value={emailField.value}
+              label={emailField.label}
+              invalid={!emailField.valid}
+              shouldValidate={emailField.validation}
+              touched={emailField.touched}
+            // changed={(event) => this.inputChangedHandler(event, formElement.id)}
+            />
+
+            <h4>Pickup Location</h4>
+            {pickupInputs}
+
+            <h4>Dropoff Location</h4>
+            {dropoffInputs}
+
+          </form>
         </div>
       </React.Fragment>
     )

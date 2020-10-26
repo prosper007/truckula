@@ -1,5 +1,6 @@
 .RequestForm {
   display: flex;
+  flex-direction: column;
   border: .15em solid #afafaf;
   border-radius: 0.5em;
   padding: .8em;
