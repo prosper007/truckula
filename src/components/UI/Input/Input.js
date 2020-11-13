@@ -1,19 +1,22 @@
 import React from 'react';
 import classes from './Input.module.css';
 
-const input = (props) => {
-  let inputElement = null;
+const getInput = (props) => {
+  let defaultInput = (
+    <input
+      name={props.name}
+      defaultValue={props.value}
+      onChange={props.onChange}
+      className={classes.Input}
+      {...props.elementConfig}
+    />
+  );
+
+  let inputElement;
 
   switch (props.elementType) {
     case ('input'):
-      inputElement = (
-        <input
-          value={props.value}
-          onChange={props.onChange}
-          className={classes.Input}
-          {...props.elementConfig}
-        />
-      );
+      inputElement = defaultInput;
       break;
     // case ('textarea'):
     //   inputElement = (
@@ -26,23 +29,17 @@ const input = (props) => {
     //   );
     //   break;
     default:
-      inputElement = (
-        <input
-          value={props.value}
-          onChange={props.onChange}
-          className={classes.Input}
-          {...props.elementConfig}
-        />
-      );
-
+      inputElement = defaultInput;
   }
+  return inputElement;
+}
+const input = (props) => {
   return (
     <div className={classes.Input}>
       <label className={classes.Label}>{props.label}</label>
-      {inputElement}
+      {getInput(props)}
     </div>
   )
-
 }
 
 export default input;

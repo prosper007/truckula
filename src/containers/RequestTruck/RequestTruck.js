@@ -64,25 +64,72 @@ class RequestTruck extends Component {
         label: 'Email',
         ...this.textInput
       },
-      pickupLocation: { ...this.addressForm },
+      pickupLocation: {
+        addressLine1: {
+          label: 'Address Line 1',
+          ...this.textInput
+        },
+        addressLine2: {
+          label: 'Address Line 2',
+          ...this.textInput
+        },
+        city: {
+          label: 'City',
+          ...this.textInput
+        },
+        state: {
+          label: 'State',
+          ...this.textInput
+        },
+        zipCode: {
+          label: 'Zip Code',
+          ...this.textInput
+        },
+      },
       dropoffLocation: { ...this.addressForm },
     }
   }
 
+  inputChangedHandler(event, inputIdentifier) {
+    const updatedRequestForm = {
+      ...this.state.requestForm
+    };
+    const updatedFormField = {
+      ...updatedRequestForm[inputIdentifier]
+    };
+   
+    if (inputIdentifier !== 'pickupLocation' && inputIdentifier !== 'dropoffLocation') {
+      updatedFormField.value = event.target.value;
+      updatedFormField.touched = true;
+      updatedRequestForm[inputIdentifier] = updatedFormField;
+    } else {
+      const updatedAddressField = event.target.name;
+      updatedFormField[updatedAddressField].value = event.target.value;
+      updatedFormField[updatedAddressField].touched = true;      
+      updatedRequestForm[inputIdentifier] = updatedFormField;
+    }
+
+    this.setState({ requestForm: updatedRequestForm });
+
+  }
+
   render() {
-    const nameField = this.state.requestForm.name;
-    const emailField = this.state.requestForm.email;
+    const nameField = { id: 'name', ...this.state.requestForm.name };
+    const emailField = { id: 'email', ...this.state.requestForm.email };
 
     let pickupFields = [];
     for (let key in this.state.requestForm.pickupLocation) {
       pickupFields.push({
-        id: "pickup_" + key,
+        key: "pickupLocation_" + key,
+        id: "pickupLocation",
+        name: key,
         ...this.state.requestForm.pickupLocation[key],
       })
     }
     let pickupInputs = pickupFields.map(pickupField => (
       <Input
-        key={pickupField.id}
+        key={pickupField.key}
+        name={pickupField.name}
         elementType={pickupField.elementType}
         elementConfig={pickupField.elementConfig}
         value={pickupField.value}
@@ -90,20 +137,23 @@ class RequestTruck extends Component {
         invalid={!pickupField.valid}
         shouldValidate={pickupField.validation}
         touched={pickupField.touched}
-      // changed={(event) => this.inputChangedHandler(event, pickupField.id)}
+        onChange={(event) => this.inputChangedHandler(event, pickupField.id)}
       />
     ))
 
     let dropoffFields = [];
     for (let key in this.state.requestForm.dropoffLocation) {
       dropoffFields.push({
-        id: "dropoff_" + key,
+        key: "dropoffLocation_" + key,
+        id: "dropoffLocation",
+        name: key,
         ...this.state.requestForm.dropoffLocation[key],
       })
     }
     let dropoffInputs = dropoffFields.map(dropoffField => (
       <Input
-        key={dropoffField.id}
+        key={dropoffField.key}
+        name={dropoffField.name}
         elementType={dropoffField.elementType}
         elementConfig={dropoffField.elementConfig}
         value={dropoffField.value}
@@ -111,7 +161,7 @@ class RequestTruck extends Component {
         invalid={!dropoffField.valid}
         shouldValidate={dropoffField.validation}
         touched={dropoffField.touched}
-      // changed={(event) => this.inputChangedHandler(event, dropoffField.id)}
+        onChange={(event) => this.inputChangedHandler(event, dropoffField.id)}
       />
     ))
     return (
@@ -121,6 +171,7 @@ class RequestTruck extends Component {
           <form>
             <Input
               key={nameField.id}
+              name={nameField.id}
               elementType={nameField.elementType}
               elementConfig={nameField.elementConfig}
               value={nameField.value}
@@ -128,11 +179,12 @@ class RequestTruck extends Component {
               invalid={!nameField.valid}
               shouldValidate={nameField.validation}
               touched={nameField.touched}
-            // changed={(event) => this.inputChangedHandler(event, formElement.id)}
+              onChange={(event) => this.inputChangedHandler(event, nameField.id)}
             />
 
             <Input
               key={emailField.id}
+              name={emailField.id}
               elementType={emailField.elementType}
               elementConfig={emailField.elementConfig}
               value={emailField.value}
@@ -140,7 +192,7 @@ class RequestTruck extends Component {
               invalid={!emailField.valid}
               shouldValidate={emailField.validation}
               touched={emailField.touched}
-            // changed={(event) => this.inputChangedHandler(event, formElement.id)}
+              onChange={(event) => this.inputChangedHandler(event, emailField.id)}
             />
 
             <h4>Pickup Location</h4>
